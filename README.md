@@ -8,7 +8,7 @@ This repo contains:
 
 - `backend/` — Django 5 + Django REST Framework + SimpleJWT, SQLite
 - `mobile/` — Expo (React Native) + React Navigation + Axios + AsyncStorage
-- `postman-test.json` — a Postman collection covering the full API flow (register 5 users, create a circle, join it, fetch details, contribute, approve)
+- `doc/` — setup instructions
 
 ## Setup
 
@@ -183,10 +183,9 @@ Verified against the spec's own examples:
   the spec exactly.
 - **Password validation**: Django's `CommonPasswordValidator` is
   intentionally left out of `AUTH_PASSWORD_VALIDATORS` — it would reject
-  ordinary demo/test passwords like `password123` (used throughout the
-  included Postman collection). `MinimumLengthValidator` (8 chars),
-  `UserAttributeSimilarityValidator`, and `NumericPasswordValidator` are
-  still active.
+  ordinary demo/test passwords like `password123`. `MinimumLengthValidator`
+  (8 chars), `UserAttributeSimilarityValidator`, and
+  `NumericPasswordValidator` are still active.
 
 ## Testing
 
@@ -211,5 +210,4 @@ Verified against the spec's own examples:
 The whole flow (register → login → create circle → join × 3 → get
 details → get round → contribute × 3 → reject non-admin approval →
 approve → payout math → reject double-approval) was also manually
-verified end-to-end against a running server using `postman-test.json`'s
-requests.
+verified end-to-end against a running server with `curl`.
