@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { useAuth } from '../hooks/useAuth';
@@ -22,9 +22,25 @@ export function HomeScreen({ navigation }: Props) {
   const [isJoining, setIsJoining] = useState(false);
   const [joinError, setJoinError] = useState<string | null>(null);
 
+  // On first landing on Home after login, jump straight to whatever circle
+  // was last open — but only once. `hasAutoNavigated` stops this from
+  // refiring if the user taps back from Circle to Home on purpose (Home
+  // stays mounted the whole time it's under Circle in the stack, so this
+  // effect — which only runs on mount — won't run again).
+  const hasAutoNavigated = useRef(false);
+  useEffect(() => {
+    if (hasAutoNavigated.current) return;
+    hasAutoNavigated.current = true;
+    CircleStorage.getLastCircleId().then((circleId) => {
+      if (circleId != null) {
+        navigation.navigate('Circle', { circleId });
+      }
+    });
+  }, [navigation]);
+
   const goToCircle = async (circleId: number) => {
     await CircleStorage.setLastCircleId(circleId);
-    navigation.replace('Circle', { circleId });
+    navigation.navigate('Circle', { circleId });
   };
 
   const handleCreate = async () => {

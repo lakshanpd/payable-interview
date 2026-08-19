@@ -1,6 +1,6 @@
 import { User } from '../types';
 import { api } from './api';
-import { TokenStorage, UserStorage } from './storage';
+import { CircleStorage, TokenStorage, UserStorage } from './storage';
 
 export interface LoginResponse {
   access: string;
@@ -24,5 +24,8 @@ export const AuthService = {
   async logout(): Promise<void> {
     await TokenStorage.clear();
     await UserStorage.clear();
+    // Otherwise the next account to log in on this device would get
+    // auto-navigated straight into this account's last-viewed circle.
+    await CircleStorage.clear();
   },
 };
