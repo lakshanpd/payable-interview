@@ -41,7 +41,9 @@ export function RootNavigator() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerTitleAlign: 'center' }}
-        initialRouteName={user && lastCircleId ? 'Circle' : 'Home'}
+        // Must match a screen actually registered in the branch below:
+        // 'Circle'/'Home' only exist when logged in, 'Login' only when not.
+        initialRouteName={user ? (lastCircleId ? 'Circle' : 'Home') : 'Login'}
       >
         {user ? (
           <>

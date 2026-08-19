@@ -31,6 +31,21 @@ Run the test suite:
 python manage.py test apps
 ```
 
+Seed demo data (optional, but recommended before trying the mobile app —
+registering 4 separate accounts by hand in a simulator is tedious). Safe
+to run more than once:
+
+```bash
+python manage.py seed_demo
+```
+
+This creates 4 users — `alice`/`bob`/`charlie`/`david`
+`@example.com`, password `password123` — already grouped into a 4-member
+"Demo Circle" (alice is admin/position 1) with its first round open. Log
+into the mobile app as any of them. There's no other seed data — a fresh
+`migrate` gives you an empty database with no accounts at all, and normal
+usage is registering through the app's Sign Up screen.
+
 ### Mobile app
 
 ```bash
