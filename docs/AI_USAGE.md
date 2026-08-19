@@ -516,3 +516,5 @@ Requirements:
 * prioritize correctness over features
 
 Generate complete source code with all files, migrations, serializers, views, services, urls, models, tests, and React Native screens.
+
+## SQLite row-level locking Issue is missed by the AI agent
